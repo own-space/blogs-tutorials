@@ -21,7 +21,8 @@ jobs:
         shell: bash
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo ${{ github.workflow.repository.url }}
+          echo ${{ github }}
+          echo ${{ github.head_ref }}
         id: extract_branch
       - name: Get branch name
         run: echo 'The branch name is' ${{ steps.extract_branch.outputs.branch }}
