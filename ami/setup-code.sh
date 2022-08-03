@@ -35,7 +35,7 @@ ssh-keyscan github.com >> ~/.ssh/known_hosts
 pip3 install psycopg2-binary
 
 sleep 10
-git clone --branch main https://github.com/own-space/django-github-cicd.git /src
+git clone --branch ${github_branch} https://github.com/own-space/django-github-cicd.git /src
 me=`whoami`
 sudo chown -Rf $me /src
 
