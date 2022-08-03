@@ -1,41 +1,41 @@
 sleep 30
 sudo yum update -y
 sleep 10
+# update PATH 
+export PATH=$PATH:/usr/local/bin
+echo "export PATH=$PATH:/usr/local/bin" >> ~/.bash_profile
+sleep 1
+source ~/.bash_profile
+sleep 10
+
 echo "installing git"
 sudo yum install git -y
 sudo yum install python3-pip -y
 # sudo yum install libpq-dev python-dev -y
 # update pip3 to latest version
 python3 -m pip install --upgrade pip
-# upgrade pillow library
-# python3 -m pip install --upgrade Pillow
 
-# update PATH 
-export PATH=$PATH:/usr/local/bin
-echo "export PATH=$PATH:/usr/local/bin" >> ~/.bash_profile
-sleep 1
-source ~/.bash_profile
+# Below lines are needed to add private ssh key for github, allows cloning private repos
+# mkdir -p ~/.ssh
+# touch /root/.ssh/id_rsa
+# cat /tmp/superrirya_github >> ~/.ssh/id_rsa
 
-sleep 10
-mkdir -p ~/.ssh
-touch /root/.ssh/id_rsa
-cat /tmp/superrirya_github >> ~/.ssh/id_rsa
+# chmod +x /tmp/mkssh.sh
+# /tmp/mkssh.sh
 
-chmod +x /tmp/mkssh.sh
-/tmp/mkssh.sh
-
-git config --global user.name "superriya"
-git config --global user.email "supriya-sontakke@hotmail.com"
-eval $(ssh-agent -s)
-chmod 600 ~/.ssh/id_rsa 
-ssh-add ~/.ssh/id_rsa
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+# git config --global user.name "superriya"
+# git config --global user.email "supriya-sontakke@hotmail.com"
+# eval $(ssh-agent -s)
+# chmod 600 ~/.ssh/id_rsa 
+# ssh-add ~/.ssh/id_rsa
+# ssh-keyscan github.com >> ~/.ssh/known_hosts
 #rm -f /tmp/superrirya_github
 
 pip3 install psycopg2-binary
 
 sleep 10
-git clone --branch ${github_branch} https://github.com/own-space/django-github-cicd.git /src
+git clone --branch ${github_branch} https://github.com/own-space/blogs-tutorials.git /src
+git clone --branch ${github_branch} ${GITHUB_REPO} /tmp/src
 me=`whoami`
 sudo chown -Rf $me /src
 
