@@ -5,10 +5,12 @@ env:
   test_message: "I'm a test_message"
 on:
   push:
-    branches: [ develop, main, feature/setup_blog_site ]
-  # pull_request:
-  #   branches:
-  #     – develop
+    branches: [ develop, main ]
+  pull_request:
+    branches:
+      – develop
+      - main
+      - feature/uat
 
 jobs:
   packer_build:
