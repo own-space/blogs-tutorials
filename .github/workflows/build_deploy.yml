@@ -29,15 +29,15 @@ jobs:
         run: echo 'The branch name is' ${{ steps.extract_branch.outputs.branch }}
       - name: Mock github context #https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
         run: |
-          echo 'The owner and repository name of the action(step executing): ' ${github.action_repository}
-          echo 'The URL of the GitHub REST API:' ${github.api_url}
-          echo 'Target branch of the pull request in a workflow run": ' ${github.base_ref}
-          echo 'The head_ref or source branch of the pull request: ' ${github.head_ref}
-          echo 'The job_id of the current job: ' ${github.job}
-          echo 'The branch or tag ref that triggered the workflow run: ' ${github.ref}
-          echo 'The branch or tag name that triggered the workflow run: ' ${github.ref_name}
-          echo 'The owner and repository name: ' ${github.repository}
-          echo 'The repository URL: ' ${github.repositoryUrl} ' from ' ${github.server_url}
+          echo 'The owner and repository name of the action(step executing): ' ${{ github.action_repository }}
+          echo 'The URL of the GitHub REST API:' ${{ github.api_url }}
+          echo 'Target branch of the pull request in a workflow run": ' ${{ github.base_ref }}
+          echo 'The head_ref or source branch of the pull request: ' ${{ github.head_ref }}
+          echo 'The job_id of the current job: ' ${{ github.job }}
+          echo 'The branch or tag ref that triggered the workflow run: ' ${{ github.ref }}
+          echo 'The branch or tag name that triggered the workflow run: ' ${{ github.ref_name }}
+          echo 'The owner and repository name: ' ${{ github.repository }}
+          echo 'The repository URL: ' ${{ github.repositoryUrl }} ' from ' ${{ github.server_url }}
           echo 'Thank you!'
       - uses: actions/checkout@v1
       - name: Packer build on AWS
