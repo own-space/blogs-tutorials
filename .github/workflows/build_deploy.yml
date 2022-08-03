@@ -5,10 +5,12 @@ env:
   test_message: "I'm a test_message"
 on:
   push:
-    branches: [ develop, main, feature/setup_blog_site ]
-  # pull_request:
-  #   branches:
-  #     – develop
+    branches: [ develop, main ]
+  pull_request:
+    branches:
+      – develop
+      - main
+      - feature/uat
 
 jobs:
   packer_build:
@@ -16,13 +18,27 @@ jobs:
     steps:
       # extract branch name
       - name: Extract branch name
+        if: 
         shell: bash
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo ${{ github.workflow.repository.url }}
+          echo ${{ github }}
+          echo ${{ github.head_ref }}
         id: extract_branch
       - name: Get branch name
         run: echo 'The branch name is' ${{ steps.extract_branch.outputs.branch }}
+      - name: Mock github context #https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+        run: |
+          echo 'The owner and repository name of the action(step executing): ' ${{ github.action_repository }}
+          echo 'The URL of the GitHub REST API:' ${{ github.api_url }}
+          echo 'Target branch of the pull request in a workflow run": ' ${{ github.base_ref }}
+          echo 'The head_ref or source branch of the pull request: ' ${{ github.head_ref }}
+          echo 'The job_id of the current job: ' ${{ github.job }}
+          echo 'The branch or tag ref that triggered the workflow run: ' ${{ github.ref }}
+          echo 'The branch or tag name that triggered the workflow run: ' ${{ github.ref_name }}
+          echo 'The owner and repository name: ' ${{ github.repository }}
+          echo 'The repository URL: ' ${{ github.repositoryUrl }} ' from ' ${{ github.server_url }}
+          echo 'Thank you!'
       - uses: actions/checkout@v1
       - name: Packer build on AWS
         uses: ExitoLab/packer_build_action_aws@v0.2.10
@@ -34,6 +50,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          GITHUB_REPO: ${{ github.server_url }}/${{ github.repository }}.git
           GITHUB_BRANCH: ${{ steps.extract_branch.outputs.branch }}
           NEW_SECRET: ${{ secrets.APP_SECRET }}
           DJANGO_SECRET_KEY: ${{ secrets.APP_SECRET }}
