@@ -1,0 +1,39 @@
+# git config --global core.excludesFile .gitignore
+application/django_app/.env
+application/blog_app/migrations
+*/migrations
+.sass-cache/
+# backend files
+*/__pycache__
+*/.env
+venv
+*/migrations/
+*/__init__.py
+db.sqlite*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

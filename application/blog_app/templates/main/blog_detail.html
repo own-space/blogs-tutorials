@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% block title %}Blog Ttile | {% endblock %} 
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="post-details">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <nav class="mt-3" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" 
+                aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'home'%}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                    </ol>
+                </nav>
+                <div class="post-container">
+                    <div class="post-meta-thumb">
+                        <img width="1200" height="675" 
+                        src="https://cdn.jevelin.shufflehound.com/wp-content/uploads/sites/11/2016/11/1-1200x675.jpg" 
+                        class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                        alt="{{ post.title }}" loading="lazy">
+                    </div>
+                    <div class="row insight_header">
+						<div class="col-1 no_mobile">
+							<img class="author_thumb" src="https://cornerstoneia.com/wp-content/uploads/2019/08/avatar-placeholder.jpeg" alt="{{ post.author.first_name }} {{ post.author.last_name }}" loading="lazy">						
+                        </div>
+						<div class="col-8 tcol-9">
+                            <div class="post-title">
+							    <h1>{{ post.title }}<span class="p2dot">.</span></h1>
+                            </div>
+							<div class="author">{{ post.author.username }}<span>Managing Director</span></div>
+						</div>
+						<div class="col-3 tcol-2">
+                            <span class="date">{{ post.created_at|date:'m/d/y H:i' }}</span>
+                        </div>
+					</div>
+                   
+                    <div class="row insight_content">
+                        <div class="col-1 no_mobile"> </div>
+                        <div class="col-8">
+                            <div class="post-details-content">{{ post.description | safe }}</div>
+                        </div>
+                    </div>
+
+                    <div class="row insight_comment">
+                        <div class="col-1 no_mobile"> </div>
+                        <div class="col-8">
+                            <div id="comment-section">
+                                <h2 class="replytitle is-4" id="replytitle">Leave a comment 
+                                    <!--<i class="fa-solid fa-comment-dots"></i>-->
+                                </h2>
+                                <div class="comment-form-block" id="comment-form-block">
+                                    <form method="post" class="mb-5">
+                                        {% csrf_token %}
+                                        {{ form|crispy}}
+                                        <button class="btn btn-warning comment-btn" type="submit">Send a comment</button>
+                                    </form>
+                                </div>
+                                <!-- above comments name came from foreign key(Post) related_name -->
+                                <div class="comment-block">
+                                    <h4 class="comment-title">Comments({{post.comments.count}})</h4>
+                                    {% if not post.comments.all %}
+                                        No comments yet...
+                                        <!--<a href="{% url 'blog_detail' post.pk  %}">Add One</a>-->
+                                    {% else %}
+                                        {% for comment in post.comments.all %}
+                                            <article class="media mb-2" style="">
+                                                <div class="media-content">
+                                                    <p>
+                                                        <!--<span class="by-text">By</span>-->
+                                                        <span class="comment-name-user">{{ comment.name }}</span>
+                                                        <small class="comment-date"> - {{ comment.created_at|date:'M-d-y H:i' }}</small>
+                                                    </p>
+                                                    <p class="comment-des">{{ comment.body }}</p>
+                                                </div>
+                                            </article>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
