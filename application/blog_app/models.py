@@ -43,5 +43,5 @@ class Post(models.Model):
     
     # slug will be generated as per the post title
     def save(self, *args, **kwargs):
-        self.slug = generate_slug(self.title + " " + self.category + " ")
+        self.slug = generate_slug(self.title)
         super(Post, self).save(*args, **kwargs)
