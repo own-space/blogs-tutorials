@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block title %}Category Blog{% endblock %} 
+{% block content %}
+<h1>{{cats}}</h1>
+{% for post in category_post %}
+    <div class="card mt-2">
+        <div class="card-header"><strong>@{{ post.author.username }}</strong></div>
+        <div class="card-body d-flex flex-row justify-content-between">
+            <div>
+                <h5 class="card-title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - 
+                    <span class="badge rounded-pill bg-info text-dark"><a href="{% url 'category' post.category %}">{{ post.category }}</a></span>
+                </h5>
+                <p>{{ post.description|slice:":150"|safe }}</p>
+            </div>
+            <div>
+                {% if user == post.author %}
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" name="post-id" value="{{post.id}}">Delete</button
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-footer text-muted" style="font-size: 12px;
+        color: #959393;">
+            {{ post.created_at|date:'M-d-y H:i' }}
+        </div>
+    </div>
+{%empty%}
+<p>No Post yet :(</p>
+{% endfor %}
+{% endblock %}

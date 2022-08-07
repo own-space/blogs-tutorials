@@ -1,0 +1,176 @@
+{% extends 'main/base.html' %}
+{% block title %}Blog{% endblock %} 
+{% block content %}
+{% load static %}
+<div class="container px-5">
+    <section class="search mt-3">
+        <div class="search-contents">
+            {% if searched %}
+                <h2>Search results for "{{ searched }}"</h2>
+                <br />
+                <div class="row mt-4">
+                    <div class="col-md-9 pe-4">
+                        <div class="row">
+                            {% for post in posts %}
+                                <div class="col-md-12 col-xl-6 mb-3">
+                                    <div class="post-card mt-2">
+                                        
+                                        <!--<div class="card-header"><strong>@{{ post.author.username }}</strong></div>-->
+                                        <div class="post-meta-thumb">
+                                            {% if post.image %}
+                                                <img width="1200" height="675" 
+                                                src="{{ post.image.url }}" 
+                                                class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                alt="{{ post.title }}" loading="lazy">
+                                            {% else %}
+                                                <img width="1200" height="675" 
+                                                src="{% static 'media/assets/images/elasticsearch.jpeg' %}" 
+                                                class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                alt="{{ post.title }}" loading="lazy">
+                                            {% endif %}
+                                        </div>
+                                    
+                                        <div class="card-body-content">
+                                            <!--<span class="badge category-badge">
+                                                {{ post.category }}
+                                            </span>-->
+                                            <!--tags display here belogs to post-->
+                                            <ul class="tags-list">
+                                                {% for tag in post.tags.all %}
+                                                    <li>
+                                                        <a class="tag-title post-tag-title" href="{% url 'tagged' tag.slug %}">
+                                                            <span>{{ tag.name }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <h5 class="card-title"> 
+                                                <a href="{% url 'blog_detail' post.pk %}" 
+                                                style="color: #000;">{{ post.title|slice:":70"|safe }}</a>
+                                            </h5>
+                                            <div class="post-meta-data">
+                                                <div class="post-meta-one">
+                                                    <!--<span class="by-text">By</span>-->
+                                                    <span>{{ post.author.first_name }} {{ post.author.last_name }} - </span>
+                                                    <span class="comment-date">{{ post.created_at|date:'m/d/y H:i'}}</span>
+                                                </div>
+                                                <!--<div class="post-meta-two" style="display: table-cell;
+                                                vertical-align: middle;text-align: right;">{{ post.created_at|date:'M-d-y H:i'}}</div>-->
+                                                <div class="post-meta-three">
+                                                    {% if user == post.author %}
+                                                        <form method="post">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="btn delete-btn-icon" name="post-id" value="{{post.id}}" 
+                                                            style="padding: 0px 5px;font-size: 12px;">
+                                                                <i class="fa-solid fa-trash-can"></i>
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <!--<p class="post-meta-data-excerpt">{{ post.excerpt|slice:":150"|safe }}-->
+                                            </p>
+                                            <p class="post-meta-data-readmore">
+                                                <a class="read-more-icon" href="{% url 'blog_detail' post.pk %}">
+                                                    <span>Read More</span>
+                                                    <span><i class="fa-solid fa-arrow-right-long"></i></span> 
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%empty%}
+                                <p>No Post yet are available :(</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        {% include 'partials/latest_post.html'  %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="row mt-4">
+                    <div class="col-md-9 pe-4">
+                        <div class="row">
+                            {% for post in posts %}
+                                <div class="col-md-12 col-xl-6 mb-3">
+                                    <div class="post-card mt-2">
+                                        
+                                        <!--<div class="card-header"><strong>@{{ post.author.username }}</strong></div>-->
+                                        <div class="post-meta-thumb">
+                                            {% if post.image %}
+                                                <img width="1200" height="675" 
+                                                src="{{ post.image.url }}" 
+                                                class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                alt="{{ post.title }}" loading="lazy">
+                                            {% else %}
+                                                <img width="1200" height="675" 
+                                                src="{% static 'media/assets/images/elasticsearch.jpeg' %}" 
+                                                class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                alt="{{ post.title }}" loading="lazy">
+                                            {% endif %}
+                                        </div>
+                                    
+                                        <div class="card-body-content">
+                                            <!--<span class="badge category-badge">
+                                                {{ post.category }}
+                                            </span>-->
+                                            <!--tags display here belogs to post-->
+                                            <ul class="tags-list">
+                                                {% for tag in post.tags.all %}
+                                                    <li>
+                                                        <a class="tag-title post-tag-title" href="{% url 'tagged' tag.slug %}">
+                                                            <span>{{ tag.name }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <h5 class="card-title"> 
+                                                <a href="{% url 'blog_detail' post.pk %}" 
+                                                style="color: #000;">{{ post.title|slice:":70"|safe }}</a>
+                                            </h5>
+                                            <div class="post-meta-data">
+                                                <div class="post-meta-one">
+                                                    <!--<span class="by-text">By</span>-->
+                                                    <span>{{ post.author.first_name }} {{ post.author.last_name }} - </span>
+                                                    <span class="comment-date">{{ post.created_at|date:'m/d/y H:i'}}</span>
+                                                </div>
+                                                <!--<div class="post-meta-two" style="display: table-cell;
+                                                vertical-align: middle;text-align: right;">{{ post.created_at|date:'M-d-y H:i'}}</div>-->
+                                                <div class="post-meta-three">
+                                                    {% if user == post.author %}
+                                                        <form method="post">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="btn delete-btn-icon" name="post-id" value="{{post.id}}" 
+                                                            style="padding: 0px 5px;font-size: 12px;">
+                                                                <i class="fa-solid fa-trash-can"></i>
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <!--<p class="post-meta-data-excerpt">{{ post.excerpt|slice:":150"|safe }}-->
+                                            </p>
+                                            <p class="post-meta-data-readmore">
+                                                <a class="read-more-icon" href="{% url 'blog_detail' post.pk %}">
+                                                    <span>Read More</span>
+                                                    <span><i class="fa-solid fa-arrow-right-long"></i></span> 
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%empty%}
+                                <p>No Post yet are available :(</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        {% include 'partials/latest_post.html'  %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}
