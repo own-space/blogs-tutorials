@@ -42,6 +42,14 @@ sudo chown -Rf $me /src
 #pip3 install --upgrade pip
 pip3 install -r /tmp/requirements.txt
 
+# install grunt cli 
+cd /src/application
+npm install -g grunt-cli
+npm install grunt --save-dev
+npm install grunt-contrib-sass --save-dev
+npm install grunt-contrib-watch --save-dev
+grunt
+
 #setting APP_DIR
 export APP_DIR=/src/app
 echo "export APP_DIR=/src/application" >> ~/.bash_profile

@@ -22,8 +22,8 @@ http://ryanchristiani.com/getting-started-with-grunt-and-sass/
         node_modules will generate after run grunt command
     Run below commands in project directory, this will generate node_modules/ package.json and package-lock.json files.
     ```sudo npm install grunt --save-dev```
-    sudo npm install grunt-contrib-sass --save-dev
-    sudo npm install grunt-contrib-watch --save-dev
+    ```sudo npm install grunt-contrib-sass --save-dev```
+    ```sudo npm install grunt-contrib-watch --save-dev```
     run ```grunt``` to start and save the scss files into css
 This procedure would convert SCSS files to CSS files and store generated CSS files to folder mentioned at **grunt.initConfig** in Gruntfile.js 
 

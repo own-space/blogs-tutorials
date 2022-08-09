@@ -122,10 +122,20 @@ USE_I18N = True
 USE_TZ = True
 
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+# Dgango stores images in media folder
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+
+STATICFILES_DIRS = [STATIC_DIR]
+
+# STATIC_ROOT will copy all files from your static folders into the STATIC_ROOT directory.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
