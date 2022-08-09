@@ -7,6 +7,14 @@ echo "export PATH=$PATH:/usr/local/bin" >> ~/.bash_profile
 sleep 1
 source ~/.bash_profile
 sleep 10
+# https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
+echo "installing npm (on Amazon linux)"
+cd $HOME
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+. ~/.nvm/nvm.sh
+nvm install --lts
+node -e "console.log('Running Node.js ' + process.version)"
 
 echo "installing git"
 sudo yum install git -y
