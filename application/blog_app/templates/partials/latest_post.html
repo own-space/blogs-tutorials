@@ -27,7 +27,7 @@
                                 <span class="post-meta-categories">
                                     <a href="#">{{ post.category }}</a>
                                 </span>
-                                <a href="#" style="text-decoration: none;">
+                                <a href="{% url 'blog_details' post.slug %}" style="text-decoration: none;">
                                     <h6 class="post-meta-categories-title">{{ post.title }}</h6>
                                 </a>
                             </div>
@@ -38,23 +38,32 @@
         </div>    
     </div>
 </div>
+
 <div class="row mt-5">
     <div class="col-md-12">
-        <h3 class="widget-title">Tags</h3>
+        {% include 'partials/advertisment_block.html' %}
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h3 class="widget-title">Common Tags</h3>
         <div class="post-card mt-2 tags-post-card">
             <ul class="tags-list common-tags">
                 {% for ctag in common_tags %}
                     <li>
-                        <a href="{% url 'tagged' ctag.slug %}" class="badge badge-success">{{ ctag }}</a> 
+                        <a href="{% url 'tagged' ctag.slug %}" 
+                            class="badge badge-success">{{ ctag }}
+                        </a> 
                     </li>
                 {% endfor %}
             </ul>
         </div>
+        <h3 class="widget-title mt-4">Tags</h3>
         <div class="post-card mt-2 tags-post-card">
             <ul class="tags-list">
                 {% for tag in tags %}
                     <li>
-                        <a class="tag-title page-tag-title" href="#">
+                        <a class="tag-title page-tag-title" href="{% url 'tagged' tag.slug %}">
                             <span>{{ tag.name }}</span>
                         </a>
                     </li>

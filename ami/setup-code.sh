@@ -67,7 +67,7 @@ echo "export APP_DIR=/src/application" >> /home/ec2-user/.bash_profile
 echo 'import uuid' > /tmp/generate_secret.py
 echo 'print(uuid.uuid4())' >> /tmp/generate_secret.py
 secret_key=`python3 /tmp/generate_secret.py`
-echo "NEW_APP_SECRET_KEY='${secret_key}'" | tee /src/application/BlogWebsite/env
+echo "NEW_APP_SECRET_KEY='${secret_key}'" | tee /src/application/django_app/env
 
 touch /src/application/django_app/.env
 cat << EOF > /src/application/django_app/.env

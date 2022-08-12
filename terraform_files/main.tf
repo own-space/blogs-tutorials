@@ -234,28 +234,3 @@ resource "aws_autoscaling_group" "django_app_asg" {
   vpc_zone_identifier  = [ aws_subnet.django_subnet.id, aws_subnet.django_subnet2.id ]
 }
 
-
-# Instance for the web server
-# resource "aws_instance" "new-vm" {
-#   ami                         = data.aws_ami.ubuntu.id
-#   instance_type               = "t2.micro"
-#   key_name                    = "${aws_key_pair.deployer.key_name}"
-#   subnet_id                   = aws_subnet.django_subnet.id
-#   #security_groups             = [ "${aws_security_group.django_security_group.id}" ]
-#   vpc_security_group_ids      = [ "${aws_security_group.django_security_group.id}" ]
-#   associate_public_ip_address = true
-
-#   tags = {
-#     "method" = "teffaform"
-#   }
-
-#   #   user_data = <<EOF
-#   # #!/bin/bash
-#   # #yum update -y 
-#   # #python3 /src/manage.py runserver 0.0.0.0:4000
-#   # EOF
-#   # root_block_device {
-#   #   volume_size           = 50
-#   #   delete_on_termination = true
-#   # }
-# }

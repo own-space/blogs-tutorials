@@ -42,8 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'taggit',
     'blog_app',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+# django_summernote is for blog description added by user
+INSTALLED_APPS += ('django_summernote', ) 
+
+# load crispy_forms with bootstrap5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,3 +152,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# If you want django-taggit to be CASE-INSENSITIVE when looking up existing tags, 
+# you’ll have to set TAGGIT_CASE_INSENSITIVE (in settings.py or wherever you have your Django settings) to True (False by default):
+TAGGIT_CASE_INSENSITIVE=True
+
+
+# when user click on logout button page will be redirect on LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/login'
