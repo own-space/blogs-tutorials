@@ -7,6 +7,14 @@ echo "export PATH=$PATH:/usr/local/bin" >> ~/.bash_profile
 sleep 1
 source ~/.bash_profile
 sleep 10
+# https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
+echo "installing npm (on Amazon linux)"
+cd $HOME
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+. ~/.nvm/nvm.sh
+nvm install --lts
+node -e "console.log('Running Node.js ' + process.version)"
 
 echo "installing git"
 sudo yum install git -y
@@ -42,6 +50,14 @@ sudo chown -Rf $me /src
 #pip3 install --upgrade pip
 pip3 install -r /tmp/requirements.txt
 
+# install grunt cli 
+cd /src/application
+npm install -g grunt-cli
+npm install grunt --save-dev
+npm install grunt-contrib-sass --save-dev
+npm install grunt-contrib-watch --save-dev
+grunt
+
 #setting APP_DIR
 export APP_DIR=/src/app
 echo "export APP_DIR=/src/application" >> ~/.bash_profile
@@ -51,7 +67,7 @@ echo "export APP_DIR=/src/application" >> /home/ec2-user/.bash_profile
 echo 'import uuid' > /tmp/generate_secret.py
 echo 'print(uuid.uuid4())' >> /tmp/generate_secret.py
 secret_key=`python3 /tmp/generate_secret.py`
-echo "NEW_APP_SECRET_KEY='${secret_key}'" | tee /src/application/BlogWebsite/env
+echo "NEW_APP_SECRET_KEY='${secret_key}'" | tee /src/application/django_app/env
 
 touch /src/application/django_app/.env
 cat << EOF > /src/application/django_app/.env

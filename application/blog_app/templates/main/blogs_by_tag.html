@@ -1,42 +1,22 @@
 {% extends 'main/base.html' %}
-{% block title %}Home{% endblock %} 
+{% block title %} All Blogs |  {% endblock %} 
 {% block content %}
 {% load static %}
 <section class="home-section">
     <div class="container pt-5 pb-5">
-        
         <div class="blog-section">
             <div class="blog-content">
                 <div class="post-filter">
                     <ul class="post-filter-list">
                         {% for cat in categories %}
                         <li class="post-filter-item">
-                            <a href="{% url 'show_category' cat.id %}">
+                            <a href="/">
                                 {{ cat.name }}
                             </a>
                             </span>
                         </li>
                         {% endfor %}
                     </ul>
-                </div>
-
-                <div class="about-section pt-5 pb-5">
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12">
-                            <div class="about-section-wrapper">
-                                <div class="about-section-content">
-                                    <h6 class="about-section-heading size-xs">
-                                        <span>INTRODUCTION</span> 
-                                    </h6>
-                                    <h1 class="about-section-heading size-xl">
-                                    <span>Welcome To My Blog</span> </h1>
-                                </div>
-                                <div id="about-section-text-block" class="about-section-text-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus elit aliquam facilisis pharetra. Aenean consectetur lacinia diam a tincidunt. Vivamus facilisis lacus non velit suscipit pellentesque. Nam ac mauris nec mi lobortis sollicitudin sed at lacus.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="site-section">
@@ -78,10 +58,9 @@
                                                     vertical-align: middle;text-align: right;">{{ post.created_at|date:'M-d-y H:i'}}</div>-->
                                                     <div class="post-meta-three">
                                                         {% if user == post.author %}
-                                                            <form method="post" action="/blog/">
+                                                            <form method="post">
                                                                 {% csrf_token %}
-                                                                <button type="submit" class="btn btn-icon delete-btn-icon" 
-                                                                name="post-id" value="{{post.id}}" 
+                                                                <button type="submit" class="btn btn-icon delete-btn-icon" name="post-id" value="{{post.id}}" 
                                                                 style="padding: 0px 5px;font-size: 12px;">
                                                                     <i class="fa-solid fa-trash-can"></i>
                                                                 </button>
@@ -102,46 +81,6 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-                                
-                                    <div class="col-md-6 mb-3">
-                                        
-                                        {% for post in posts2 %}
-                                            <div class="post-entry-2 d-flex flex-row bg-light mb-3">
-                                                {% if post.image %}
-                                                    <div class="post-entry-2-thumbnail" style="background-image:url('{{ post.image.url }}')"></div>
-                                                {% else %}
-                                                    <div class="post-entry-2-thumbnail" style="background-image:url('media/assets/images/elasticsearch.jpeg')"></div>
-                                                {% endif %}
-                                                <div class="post-entry-2-contents">
-                                                    <h2>
-                                                        <a href="{% url 'blog_details' post.slug %}">{{ post.title }}</a>
-                                                    </h2>
-                                                    <div class="post-entry-2-post-meta">
-                                                        <span class="d-block">
-                                                            <a href="#">Dave Rogers</a> 
-                                                        </span>
-                                                        <span class="date-read">{{ post.created_at|date:'M-d-y'}}</span></span>
-                                                        <p class="post-entry2-data-readmore">
-                                                            <a href="{% url 'blog_details' post.slug %}">
-                                                                <span>Read More</span>
-                                                                <span><i class="fa-solid fa-arrow-right-long"></i></span> 
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                        <p>
-                                            <a href="{% url 'all_blogs' %}" class="more">
-                                                <span> 
-                                                    See All Blogs 
-                                                </span>
-                                                <span>
-                                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                                </span>
-                                            </a>
-                                        </p>
                                     </div>
                                 {%empty%}
                                     <p>No Post yet are available :(</p>
