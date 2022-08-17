@@ -1,0 +1,10 @@
+[Unit]
+Description=Gunicorn daemon to serve my Django App
+After=network.target
+[Service]
+User=root
+Group=root
+WorkingDirectory=/src/application/
+ExecStart=/usr/local/bin/gunicorn django_app.wsgi:application --workers 1 --user=root --group=root --bind=unix:/src/application/run/gunicorn.sock --log-level=debug --timeout 30 --log-file=/src/application/log/django.gunicorn.log
+[Install]
+WantedBy=multi-user.target
