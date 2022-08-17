@@ -1,6 +1,16 @@
 sleep 30
 sudo yum update -y
 sleep 10
+# install Ruby 2.4 and Sass 3.4
+sudo yum install -y ruby ruby-devel ruby-rdoc ruby-ri ruby-irb ruby-shadow gcc gcc-c++ libxml2-devel libxslt-devel
+sudo yum install -y ruby-full ruby-devel ruby-rdoc ruby-ri ruby-irb ruby-shadow gcc gcc-c++ libxml2-devel libxslt-devel
+sudo amazon-linux-extras install ruby2.6 -y
+gem install sass
+sleep 1
+
+# install nginx
+sudo amazon-linux-extras install nginx1 -y
+sleep 1
 # update PATH 
 export PATH=$PATH:/usr/local/bin
 echo "export PATH=$PATH:/usr/local/bin" >> ~/.bash_profile
@@ -31,14 +41,14 @@ python3 -m pip install --upgrade pip
 # chmod +x /tmp/mkssh.sh
 # /tmp/mkssh.sh
 
-# git config --global user.name "superriya"
-# git config --global user.email "supriya-sontakke@hotmail.com"
+# git config --global user.name "user"
+# git config --global user.email "user@hotmail.com"
 # eval $(ssh-agent -s)
 # chmod 600 ~/.ssh/id_rsa 
 # ssh-add ~/.ssh/id_rsa
 # ssh-keyscan github.com >> ~/.ssh/known_hosts
 #rm -f /tmp/superrirya_github
-
+pip3 install gunicorn
 pip3 install psycopg2-binary
 
 sleep 10
@@ -56,6 +66,7 @@ npm install -g grunt-cli
 npm install grunt --save-dev
 npm install grunt-contrib-sass --save-dev
 npm install grunt-contrib-watch --save-dev
+# npm install --save node-sass grunt-sass
 grunt
 
 #setting APP_DIR
@@ -94,6 +105,11 @@ EOF
 
 python3 /src/application/manage.py makemigrations
 python3 /src/application/manage.py migrate
+
+# setup nginx and gunicorn
+cp /tmp/nginx_app.conf /etc/nginx/conf.d/app.conf
+pip3 install gunicorn -y
+pip3 install django-gunicorn -y
 
 sudo chown -Rf ec2-user /src
 
