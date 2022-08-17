@@ -50,6 +50,7 @@ python3 -m pip install --upgrade pip
 #rm -f /tmp/superrirya_github
 pip3 install gunicorn
 pip3 install psycopg2-binary
+pip3 install Pillow
 
 sleep 10
 git clone --branch ${github_branch} https://github.com/own-space/blogs-tutorials.git /src
