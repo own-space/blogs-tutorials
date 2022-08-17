@@ -47,6 +47,11 @@
             "destination": "/tmp/requirements.txt"
         },
         {
+            "type": "file",
+            "source": "./nginx_app.conf",
+            "destination": "/tmp/nginx_app.conf"
+        },
+        {
             "type" : "shell",
             "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts": [

@@ -108,9 +108,10 @@ python3 /src/application/manage.py migrate
 
 # setup nginx and gunicorn
 cp /tmp/nginx_app.conf /etc/nginx/conf.d/app.conf
-pip3 install gunicorn -y
-pip3 install django-gunicorn -y
-
+pip3 install gunicorn
+cp /src/application/appmd.service /etc/systemd/system/djapp.service
+systemctl start djapp
+sudo chkconfig djapp on
 sudo chown -Rf ec2-user /src
 
 # update settings file to allow hosts from other domains
