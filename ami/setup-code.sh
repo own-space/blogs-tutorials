@@ -117,3 +117,6 @@ sudo chown -Rf ec2-user /src
 
 # update settings file to allow hosts from other domains
 sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*\"\]/g' /src/application/django_app/settings.py
+
+mkdir -p /src/application/log && chmod -Rf 777 /src/application/log
+sudo chkconfig nginx on
