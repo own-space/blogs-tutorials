@@ -112,12 +112,13 @@ cp /tmp/nginx_app.conf /etc/nginx/conf.d/app.conf
 pip3 install gunicorn
 cp /src/application/appmd.service /etc/systemd/system/djapp.service
 systemctl start djapp
-sudo chkconfig djapp on
 sudo chown -Rf ec2-user /src
 
 # update settings file to allow hosts from other domains
 sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*\"\]/g' /src/application/django_app/settings.py
 
+# setup directory structure required for application to run
 mkdir -p /src/application/log && chmod -Rf 777 /src/application/log
 mkdir -p /src/application/run && chmod -Rf 777 /src/application/run
 sudo chkconfig nginx on
+sudo chkconfig djapp on
