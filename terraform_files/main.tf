@@ -68,7 +68,7 @@ resource "aws_security_group" "django_security_group" {
     cidr_blocks = var.ingressCIDRblock  
     from_port   = 80
     to_port     = 80
-    protocol    = "http"
+    protocol    = "tcp"
   }
 
   # allow ingress of https port 443
@@ -76,7 +76,7 @@ resource "aws_security_group" "django_security_group" {
     cidr_blocks = var.ingressCIDRblock  
     from_port   = 443
     to_port     = 443
-    protocol    = "https"
+    protocol    = "tcp"
   }
 
   # allow egress of all ports
