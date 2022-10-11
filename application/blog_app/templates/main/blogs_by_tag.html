@@ -3,23 +3,26 @@
 {% block content %}
 {% load static %}
 <section class="home-section">
+    <div class="post-nav-section">
+        <div class="container">
+            <div class="post-filter">
+                <ul class="post-filter-list">
+                    {% for cat in categories %}
+                    <li class="post-filter-item">
+                        <a href="{% url 'show_category' cat.id %}">
+                            {{ cat.name }}
+                        </a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="container pt-5 pb-5">
         <div class="blog-section">
             <div class="blog-content">
-                <div class="post-filter">
-                    <ul class="post-filter-list">
-                        {% for cat in categories %}
-                        <li class="post-filter-item">
-                            <a href="/">
-                                {{ cat.name }}
-                            </a>
-                            </span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <div class="site-section">
+                <div class="site-section pt-5 pb-5">
                     <div class="row">
                         <div class="col-md-8 pe-4">
                             <div class="row">
@@ -28,14 +31,14 @@
                                         <div class="post-card post-entry1 mt-2">
                                             <div class="post-meta-thumb">
                                                 {% if post.image %}
-                                                    <img width="1200" height="675" 
+                                                    <img width="1200"
                                                     src="{{ post.image.url }}" 
-                                                    class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                    class="post-meta-thumb-img" 
                                                     alt="{{ post.title }}" loading="lazy">
                                                 {% else %}
-                                                    <img width="1200" height="675" 
-                                                    src="{% static 'media/assets/images/elasticsearch.jpeg' %}" 
-                                                    class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                                    <img width="1200"
+                                                    src="{% static 'media/assets/images/blog-1.jpg' %}" 
+                                                    class="post-meta-thumb-img" 
                                                     alt="{{ post.title }}" loading="lazy">
                                                 {% endif %}
                                             </div>
@@ -45,9 +48,9 @@
                                                     <a href="{% url 'blog_details' post.slug %}" 
                                                     style="color: #000;">{{ post.title|slice:":70"|safe }}</a>
                                                 </h5>
-                                                <p class="card-desc">
-                                                    {{ post.description | truncatechars:200 }}
-                                                </p>
+                                               <div class="card-desc">
+                                                    {{ post.description|safe|truncatechars:200 }}
+                                               </div>
                                                 <div class="post-meta-data">
                                                     <div class="post-meta-one">
                                                         <!--<span class="by-text">By</span>-->

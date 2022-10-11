@@ -39,7 +39,7 @@ def login_view(request):
         return render(request, 'registration/login.html', {})
 
 def home(request):
-    posts = Post.objects.all()[0:1]
+    posts = Post.objects.filter(section='Latest Post', status='1')[0:1]
     posts2 = Post.objects.all()[1:5]
     recent_posts = Post.objects.filter(section='Recent', status='0').order_by('-id')[0:1]
     latest_posts = Post.objects.filter(section='Latest Post', status='1').order_by('-id')[0:3]
@@ -98,10 +98,18 @@ def all_blogs(request):
     categories = Category.objects.all()
     latest_posts = Post.objects.filter(section='Latest Post', status='1').order_by('-id')[0:3]
     
+    # show all tags
+    tags = Tag.objects.all()
+    
+    # show most-common tags
+    common_tags = Post.tags.most_common()[:4]
+    
     context = {
         "all_blogs": all_blogs, 
         "categories": categories,
         "latest_posts": latest_posts, 
+        "tags": tags,
+        "common_tags": common_tags,
     }
     
     # Render all_blogs.html template 

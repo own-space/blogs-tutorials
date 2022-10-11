@@ -10,7 +10,7 @@
                 <h5 class="card-title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - 
                     <span class="badge rounded-pill bg-info text-dark"><a href="{% url 'category' post.category %}">{{ post.category }}</a></span>
                 </h5>
-                <p>{{ post.description|slice:":150"|safe }}</p>
+                <div class="card-desc">{{ post.description|safe|truncatechars:200 }}</div>
             </div>
             <div>
                 {% if user == post.author %}

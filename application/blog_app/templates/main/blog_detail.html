@@ -22,33 +22,82 @@
                         <div class="col-md-12">
                             <div class="post-meta-thumb">
                                 {% if post.image %}
-                                    <img width="1200" height="675" 
-                                    src="{{ post.image.url }}" 
-                                    class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
-                                    alt="{{ post.title }}" loading="lazy">
+                                <img width="1200" 
+                                src="{{ post.image.url }}" 
+                                class="post-meta-thumb-img" 
+                                alt="" loading="lazy">
                                 {% else %}
-                                    <img width="1200" height="675" 
-                                    src="{% static 'media/assets/images/elasticsearch.jpeg' %}" 
-                                    class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
-                                    alt="{{ post.title }}" loading="lazy">
+                                <img width="1200" 
+                                src="{% static 'media/assets/images/blog-1.jpg' %}" 
+                                class="post-meta-thumb-img" 
+                                alt="" loading="lazy">
                                 {% endif %}
+                            </div>
+                            <a href="https://jevelin.shufflehound.com/blog1/2016/11/23/craftsmen-at-work/" class="post-title">
+                                <h1 itemprop="headline">{{ post.title }}</h1>
+                            </a>
+                            <div class="post-meta-data sh-columns">
+                                <div class="post-meta post-meta-one">
+                                    <span class="post-meta-author">
+                                        by Supriya Sontakke{{ post.author.username }}
+                                    </span>
+                                    <span class="post-meta-date">
+                                        {{ post.created_at|date:'m/d/y H:i' }}
+                                    </span>
+                                </div>
+                                <div class="post-meta post-meta-two">
+                                    <div class="sh-columns post-meta-comments">
+                                        <a 
+                                        href="https://jevelin.shufflehound.com/blog1/2016/11/23/craftsmen-at-work/#comments" 
+                                        class="post-meta-comments">
+                                            <i class="fa-regular fa-message"></i>0
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="post-details-content">
+                                <p>
+                                    {{ post.description | safe }}
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="insight_header mt-5">
-						<div class="insight_header-author">
-							<div class="author">{{ post.author.username }}<span>Managing Director</span></div>						
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="blog-comment-section" id="blog-comment-section">
+                                <h2 class="comment-header" id="replytitle">Leave a comment 
+                                    <!--<i class="fa-solid fa-comment-dots"></i>-->
+                                </h2>
+                                <div class="comment-form-block" id="comment-form-block">
+                                    <form method="post" class="mb-5">
+                                        {% csrf_token %}
+                                        {{ form|crispy}}
+                                        <button class="btn btn-success submit-btn" type="submit">Send a comment</button>
+                                    </form>
+                                </div>
+                                <!-- above comments name came from foreign key(Post) related_name -->
+                                <div class="comment-block">
+                                    <h4 class="comment-title">Comments({{post.comments.count}})</h4>
+                                    {% if not post.comments.all %}
+                                        No comments yet...
+                                    {% else %}
+                                        {% for comment in post.comments.all %}
+                                            <article class="media mb-2" style="">
+                                                <div class="media-content">
+                                                    <p>
+                                                        <!--<span class="by-text">By</span>-->
+                                                        <span class="comment-name-user">{{ comment.name }}</span>
+                                                        <small class="comment-date"> - {{ comment.created_at|date:'M-d-y H:i' }}</small>
+                                                    </p>
+                                                    <p class="comment-des">{{ comment.body }}</p>
+                                                </div>
+                                            </article>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
-						<div class="insight_header-date">
-                            <span class="date">{{ post.created_at|date:'m/d/y H:i' }}</span>
-                        </div>
-					</div>
-                   
-                    <div class="insight_content">
-                        <div class="post-title">
-                            <h1>{{ post.title }}<span class="p2dot">.</span></h1>
-                        </div>
-                        <div class="post-details-content">{{ post.description | safe }}</div>
                     </div>
                 </div>
             </div>
@@ -57,44 +106,7 @@
                 {% include 'partials/latest_post.html'  %}
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="insight_comment">
-                    <div id="comment-section">
-                        <h2 class="comment-btn" id="replytitle">Leave a comment 
-                            <!--<i class="fa-solid fa-comment-dots"></i>-->
-                        </h2>
-                        <div class="comment-form-block" id="comment-form-block">
-                            <form method="post" class="mb-5">
-                                {% csrf_token %}
-                                {{ form|crispy}}
-                                <button class="submit-btn" type="submit">Submit comment</button>
-                            </form>
-                        </div>
-                        <!-- above comments name came from foreign key(Post) related_name -->
-                        <div class="comment-block">
-                            <h4 class="comment-title">Comments({{post.comments.count}})</h4>
-                            {% if not post.comments.all %}
-                                No comments yet...
-                            {% else %}
-                                {% for comment in post.comments.all %}
-                                    <article class="media mb-2" style="">
-                                        <div class="media-content">
-                                            <p>
-                                                <!--<span class="by-text">By</span>-->
-                                                <span class="comment-name-user">{{ comment.name }}</span>
-                                                <small class="comment-date"> - {{ comment.created_at|date:'M-d-y H:i' }}</small>
-                                            </p>
-                                            <p class="comment-des">{{ comment.body }}</p>
-                                        </div>
-                                    </article>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
     </div>
 </div>

@@ -3,24 +3,26 @@
 {% block content %}
 {% load static %}
 <section class="home-section">
+    <div class="post-nav-section">
+        <div class="container">
+            <div class="post-filter">
+                <ul class="post-filter-list">
+                    {% for cat in categories %}
+                    <li class="post-filter-item">
+                        <a href="{% url 'show_category' cat.id %}">
+                            {{ cat.name }}
+                        </a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="container pt-5 pb-5">
-        
         <div class="blog-section">
             <div class="blog-content">
-                <div class="post-filter">
-                    <ul class="post-filter-list">
-                        {% for cat in categories %}
-                        <li class="post-filter-item">
-                            <a href="{% url 'show_category' cat.id %}">
-                                {{ cat.name }}
-                            </a>
-                            </span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <div class="about-section pt-5 pb-5">
+                <div class="about-section pt-5 pb-5 mb-5">
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="about-section-wrapper">
@@ -29,7 +31,7 @@
                                         <span>INTRODUCTION</span> 
                                     </h6>
                                     <h1 class="about-section-heading size-xl">
-                                    <span>Welcome To My Blog</span> </h1>
+                                    <span>Small Intro About Me!</span> </h1>
                                 </div>
                                 <div id="about-section-text-block" class="about-section-text-block">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus elit aliquam facilisis pharetra. Aenean consectetur lacinia diam a tincidunt. Vivamus facilisis lacus non velit suscipit pellentesque. Nam ac mauris nec mi lobortis sollicitudin sed at lacus.</p>
@@ -54,20 +56,20 @@
                                                     alt="{{ post.title }}" loading="lazy">
                                                 {% else %}
                                                     <img width="1200" height="675" 
-                                                    src="{% static 'media/assets/images/elasticsearch.jpeg' %}" 
+                                                    src="{% static 'media/assets/images/blog-1.jpg' %}" 
                                                     class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
                                                     alt="{{ post.title }}" loading="lazy">
                                                 {% endif %}
                                             </div>
                                         
                                             <div class="card-body-content">
-                                                <h5 class="card-title"> 
+                                                <h2 class="card-title"> 
                                                     <a href="{% url 'blog_details' post.slug %}" 
                                                     style="color: #000;">{{ post.title|slice:":70"|safe }}</a>
-                                                </h5>
-                                                <p class="card-desc">
-                                                    {{ post.description | truncatechars:200 }}
-                                                </p>
+                                                </h2>
+                                                <div class="card-desc">
+                                                    {{ post.description|safe|truncatechars:200 }}
+                                                </div>
                                                 <div class="post-meta-data">
                                                     <div class="post-meta-one">
                                                         <!--<span class="by-text">By</span>-->
@@ -92,8 +94,6 @@
                                                         {% endif %}
                                                     </div>
                                                 </div>
-                                                <!--<p class="post-meta-data-excerpt">{{ post.excerpt|slice:":150"|safe }}-->
-                                                </p>
                                                 <p class="post-meta-data-readmore">
                                                     <a class="read-more-icon" href="{% url 'blog_details' post.slug %}">
                                                         <span>Read More</span>
@@ -111,23 +111,21 @@
                                                 {% if post.image %}
                                                     <div class="post-entry-2-thumbnail" style="background-image:url('{{ post.image.url }}')"></div>
                                                 {% else %}
-                                                    <div class="post-entry-2-thumbnail" style="background-image:url('media/assets/images/elasticsearch.jpeg')"></div>
+                                                    <div class="post-entry-2-thumbnail" style="background-image: url('{% static "media/assets/images/blog-1.jpg"%}')";></div>
                                                 {% endif %}
                                                 <div class="post-entry-2-contents">
                                                     <h2>
                                                         <a href="{% url 'blog_details' post.slug %}">{{ post.title }}</a>
                                                     </h2>
                                                     <div class="post-entry-2-post-meta">
-                                                        <span class="d-block">
-                                                            <a href="#">Dave Rogers</a> 
-                                                        </span>
-                                                        <span class="date-read">{{ post.created_at|date:'M-d-y'}}</span></span>
-                                                        <p class="post-entry2-data-readmore">
+                                                        <span class="date-read">{{ post.created_at|date:'M-d-y'}}</span>
+                                                        <span> . </span>
+                                                        <span class="post-entry2-data-readmore">
                                                             <a href="{% url 'blog_details' post.slug %}">
-                                                                <span>Read More</span>
+                                                                <span>Read More </span>
                                                                 <span><i class="fa-solid fa-arrow-right-long"></i></span> 
                                                             </a>
-                                                        </p>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

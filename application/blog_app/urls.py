@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('all_blogs/', views.all_blogs, name='all_blogs'),
@@ -11,6 +12,11 @@ urlpatterns = [
     path('search-blog/', views.search_blog, name='search_blog'),
     path('summernote/', include('django_summernote.urls')),
     # path('blog/<int:pk>', views.blog_detail, name='blog_detail'),
+    
+    # Accounts url's
+    path('sign-up/', views.sign_up, name='sign_up'),
+    path('login-user/', views.login_view, name='login_view'),
+    path('logout_view/', views.logout_view, name='logout_view'), 
     
     # Create,Update Blog, Category Url's
     path('create_post/', views.create_post, name='create_post'),
@@ -22,10 +28,7 @@ urlpatterns = [
     # tag url
     path('tag/<slug:slug>/', views.tagged, name='tagged'),
     
-    # Accounts url's
-    path('sign-up/', views.sign_up, name='sign_up'),
-    path('login-user/', views.login_view, name='login_view'),
-    path('logout_view/', views.logout_view, name='logout_view'),
+    
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
