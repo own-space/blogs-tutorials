@@ -1,0 +1,74 @@
+{% load static %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="sidebar">
+            <div class="recent-post">
+                <h3 class="widget-title">Latest Posts</h3>
+                {% for post in latest_posts %}
+                    <div class="recent-post-wedgets">
+                        <div class="recent-post-wedgets-item">
+                            <div class="recent-post-wedgets-item-thumb">
+                                <a href="#">
+                                    {% if post.image %}
+                                        <img width="1200" height="675" 
+                                            src="{{ post.image.url }}" 
+                                            class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                            alt="{{ post.title }}" loading="lazy">
+                                    {% else %}
+                                        <img width="1200" height="675" 
+                                            src="{% static 'media/assets/images/blog-1.jpg' %}" 
+                                            class="attachment-jevelin-landscape-large size-jevelin-landscape-large wp-post-image" 
+                                            alt="{{ post.title }}" loading="lazy">
+                                    {% endif %}
+                                </a>
+                               
+                            </div>
+                            <div class="recent-post-wedgets-item-content">
+                                <span class="post-meta-categories">
+                                    <a href="#">{{ post.category }}</a>
+                                </span>
+                                <a href="{% url 'blog_details' post.slug %}" style="text-decoration: none;">
+                                    <h6 class="post-meta-categories-title">{{ post.title }}</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>    
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        {% include 'partials/advertisment_block.html' %}
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h3 class="widget-title">Common Tags</h3>
+        <div class="post-card mt-2 tags-post-card">
+            <ul class="tags-list common-tags">
+                {% for ctag in common_tags %}
+                    <li>
+                        <a href="{% url 'tagged' ctag.slug %}" 
+                            class="badge badge-success">{{ ctag }}
+                        </a> 
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h3 class="widget-title mt-4">Tags</h3>
+        <div class="post-card mt-2 tags-post-card">
+            <ul class="tags-list">
+                {% for tag in tags %}
+                    <li>
+                        <a class="tag-title page-tag-title" href="{% url 'tagged' tag.slug %}">
+                            <span>{{ tag.name }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
